@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Portofolio | Belajar UI & Programming Dari Nol Sampai Mahir</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <title>Randa | Portfolio & Learning Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -14,196 +14,385 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            background: #ffffff;
+            color: #0a0a0a;
             line-height: 1.5;
             scroll-behavior: smooth;
         }
         .container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;
         }
+        
+        /* Glass Navigation */
         .navbar {
-            position: sticky;
+            position: fixed;
             top: 0;
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.85);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            z-index: 100;
-            padding: 16px 0;
+            z-index: 1000;
+            padding: 18px 0;
         }
         .nav-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: -0.02em;
         }
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 40px;
             list-style: none;
-            flex-wrap: wrap;
         }
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
-            color: #1e293b;
+            color: #1a1a1a;
             transition: 0.2s;
+            font-size: 0.95rem;
         }
         .nav-links a:hover {
             color: #2563eb;
         }
+        
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            border-radius: 40px;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 12px;
             font-weight: 600;
             text-decoration: none;
-            transition: 0.2s;
+            transition: all 0.2s ease;
             cursor: pointer;
             border: none;
+            font-size: 0.95rem;
         }
         .btn-primary {
-            background: #0f172a;
+            background: #0a0a0a;
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .btn-primary:hover {
-            background: #1e293b;
+            background: #2563eb;
             transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
         }
         .btn-outline {
             background: transparent;
-            border: 1px solid #cbd5e1;
-            color: #1e293b;
+            border: 1.5px solid #e2e8f0;
+            color: #1a1a1a;
         }
         .btn-outline:hover {
             border-color: #2563eb;
             color: #2563eb;
+            background: rgba(37, 99, 235, 0.05);
         }
+        
+        /* Hero */
         .hero {
-            padding: 80px 0 64px;
+            padding: 140px 0 80px;
         }
         .hero-grid {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 48px;
+            gap: 60px;
         }
         .hero-content {
             flex: 1;
         }
         .badge {
-            background: #e2e8f0;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            background: #eef2ff;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            color: #2563eb;
         }
         .hero-content h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
+            font-size: 3.5rem;
+            font-weight: 800;
             line-height: 1.2;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
         }
         .highlight {
-            background: linear-gradient(120deg, #2563eb, #38bdf8);
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
         .hero-desc {
             font-size: 1.1rem;
-            color: #334155;
+            color: #5b6e8c;
             max-width: 500px;
             margin-bottom: 32px;
         }
-        .hero-buttons {
+        .hero-stats {
             display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 40px;
+        }
+        .stat h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        .stat p {
+            font-size: 0.85rem;
+            color: #5b6e8c;
         }
         .hero-avatar {
-            flex: 0.8;
-            display: flex;
-            justify-content: center;
-        }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 48px;
+            flex: 0.7;
+            background: linear-gradient(135deg, #2563eb10, #7c3aed10);
+            border-radius: 50%;
+            padding: 20px;
             text-align: center;
-            letter-spacing: -0.01em;
         }
+        .hero-avatar i {
+            font-size: 140px;
+            color: #2563eb;
+        }
+        
+        /* Section */
         section {
             padding: 80px 0;
         }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #5b6e8c;
+            margin-bottom: 60px;
+            font-size: 1rem;
+        }
+        
+        /* Skills */
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 32px;
+            gap: 20px;
         }
         .skill-card {
             background: white;
-            border-radius: 28px;
-            padding: 28px 24px;
-            width: 200px;
+            border-radius: 20px;
+            padding: 24px 32px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
             border: 1px solid #eef2ff;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
+            min-width: 140px;
         }
         .skill-card:hover {
-            transform: translateY(-8px);
-            border-color: #cbd5e1;
+            transform: translateY(-4px);
+            border-color: #2563eb;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.1);
         }
         .skill-card i {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
+            font-size: 2rem;
             color: #2563eb;
+            margin-bottom: 12px;
         }
+        .skill-card h3 {
+            font-size: 1rem;
+        }
+        
+        /* Projects */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 32px;
         }
         .project-card {
             background: white;
-            border-radius: 28px;
-            padding: 24px;
-            text-align: center;
+            border-radius: 24px;
+            overflow: hidden;
             border: 1px solid #eef2ff;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
+            border-color: #2563eb40;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
         }
-        .project-card i {
-            font-size: 2rem;
-            margin-bottom: 16px;
+        .project-img {
+            height: 200px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .project-img i {
+            font-size: 3.5rem;
+            color: white;
+        }
+        .project-info {
+            padding: 24px;
+        }
+        .project-info h3 {
+            margin-bottom: 8px;
+        }
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: #eef2ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
             color: #2563eb;
         }
+        
+        /* Learning Path */
+        .learning-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: white;
+        }
+        .level-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .level-tab {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 32px;
+            border-radius: 60px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .level-tab.active {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        .level-content {
+            display: none;
+        }
+        .level-content.active {
+            display: block;
+        }
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .learning-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.2s;
+        }
+        .learning-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.08);
+        }
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .video-embed iframe {
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #10b981;
+        }
+        .quiz-option {
+            background: rgba(255,255,255,0.08);
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .quiz-option.selected {
+            background: #2563eb;
+        }
+        .btn-sm {
+            background: #10b981;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .progress-container {
+            max-width: 500px;
+            margin: 0 auto 48px;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 10px;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.3s;
+        }
+        
+        /* Contact */
         .contact-card {
             background: white;
             border-radius: 32px;
-            padding: 40px;
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.05);
+            padding: 48px;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
             border: 1px solid #eef2ff;
             max-width: 700px;
             margin: 0 auto;
@@ -213,178 +402,49 @@
         }
         input, textarea {
             width: 100%;
-            padding: 14px 18px;
-            border: 1px solid #e2e8f0;
-            border-radius: 24px;
+            padding: 16px 20px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 20px;
             font-family: 'Inter', sans-serif;
             transition: 0.2s;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         input:focus, textarea:focus {
             outline: none;
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
+        
         footer {
             text-align: center;
-            padding: 32px 0;
+            padding: 48px 0;
             border-top: 1px solid #eef2ff;
-            color: #475569;
+            color: #5b6e8c;
         }
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 28px;
-            margin-bottom: 20px;
+            gap: 32px;
+            margin-bottom: 24px;
         }
         .social-links a {
-            color: #475569;
-            font-size: 1.4rem;
+            color: #5b6e8c;
+            font-size: 1.3rem;
             transition: 0.2s;
         }
         .social-links a:hover {
             color: #2563eb;
         }
         
-        /* Learning Path Styles */
-        .learning-section {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            color: white;
-        }
-        .level-tab {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            padding: 10px 24px;
-            border-radius: 40px;
-            color: white;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.2s;
-            margin: 0 5px;
-        }
-        .level-tab.active {
-            background: #10b981;
-            color: white;
-        }
-        .level-content {
-            display: none;
-        }
-        .level-content.active {
-            display: block;
-        }
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
-        }
-        .roadmap-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-        .roadmap-card:hover {
-            transform: translateY(-4px);
-        }
-        .card-header {
-            background: rgba(0,0,0,0.3);
-            padding: 16px 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .topic-item {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .topic-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #10b981;
-        }
-        .video-embed {
-            margin: 16px 0;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .video-embed iframe {
-            width: 100%;
-            height: 200px;
-            border: none;
-        }
-        .quiz-question {
-            background: rgba(255,255,255,0.05);
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-        .quiz-option {
-            display: block;
-            margin: 8px 0;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .quiz-option:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        .quiz-option.selected {
-            background: #3b82f6;
-        }
-        .task-status {
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .progress-bar-container {
-            background: rgba(255,255,255,0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-        .progress-bar {
-            width: 0%;
-            height: 12px;
-            background: linear-gradient(90deg, #10b981, #34d399);
-            transition: width 0.3s;
-        }
-        .btn-small {
-            background: #10b981;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            color: white;
-            cursor: pointer;
-            font-weight: 500;
-            margin-top: 8px;
-        }
-        .btn-small:hover {
-            background: #059669;
-        }
-        .resource-link {
-            color: #34d399;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .resource-link:hover {
-            text-decoration: underline;
-        }
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2rem; }
-            .nav-links { gap: 16px; margin-top: 12px; }
-            .roadmap-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 1.5rem; }
-            section { padding: 50px 0; }
+            .container { padding: 0 20px; }
+            .hero-grid { flex-direction: column-reverse; text-align: center; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-stats { justify-content: center; }
+            .nav-links { display: none; }
+            .level-tabs { flex-wrap: wrap; }
+            .learning-grid { grid-template-columns: 1fr; }
+            .contact-card { padding: 28px; }
         }
     </style>
 </head>
@@ -392,7 +452,7 @@
 
 <nav class="navbar">
     <div class="container nav-flex">
-        <span class="logo"><i class="fas fa-code"></i> DevPort</span>
+        <span class="logo"><i class="fas fa-code"></i> Randa</span>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -404,241 +464,247 @@
 </nav>
 
 <main>
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container hero-grid">
             <div class="hero-content">
                 <span class="badge"><i class="fas fa-rocket"></i> Mentor & Developer</span>
-                <h1>Belajar <span class="highlight">UI Design & Programming</span> Dari Nol Sampai Mahir</h1>
-                <p class="hero-desc">Panduan lengkap dengan video tutorial, quiz interaktif, dan tugas praktek. Lacak progress belajarmu di sini!</p>
+                <h1>Belajar <span class="highlight">UI & Programming</span> Dari Nol Sampai Mahir</h1>
+                <p class="hero-desc">Panduan lengkap dengan video tutorial, quiz interaktif, dan tugas praktek. Progress tersimpan otomatis.</p>
                 <div class="hero-buttons">
                     <a href="#learning" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Mulai Belajar</a>
                     <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Hubungi Saya</a>
                 </div>
+                <div class="hero-stats">
+                    <div class="stat"><h3>3+</h3><p>Tahun Pengalaman</p></div>
+                    <div class="stat"><h3>50+</h3><p>Siswa Dibimbing</p></div>
+                    <div class="stat"><h3>20+</h3><p>Project Selesai</p></div>
+                </div>
             </div>
             <div class="hero-avatar">
-                <div style="background: linear-gradient(145deg, #2563eb20, #7c3aed20); border-radius: 50%; padding: 30px;">
-                    <i class="fas fa-user-astronaut" style="font-size: 90px; color: #1e293b;"></i>
-                </div>
+                <i class="fas fa-user-astronaut"></i>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <div class="container">
             <h2 class="section-title">Tech Stack & Tools</h2>
+            <p class="section-subtitle">Yang akan kamu pelajari dalam perjalanan ini</p>
             <div class="skills-grid">
-                <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript/TS</h3><p>React, Node, Next</p></div>
-                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3><p>FastAPI, Django</p></div>
-                <div class="skill-card"><i class="fab fa-figma"></i><h3>Figma</h3><p>UI/UX Design</p></div>
-                <div class="skill-card"><i class="fab fa-react"></i><h3>React</h3><p>Frontend Modern</p></div>
-                <div class="skill-card"><i class="fas fa-database"></i><h3>Database</h3><p>PostgreSQL, MongoDB</p></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML5</h3></div>
+                <div class="skill-card"><i class="fab fa-css3-alt"></i><h3>CSS3</h3></div>
+                <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript</h3></div>
+                <div class="skill-card"><i class="fab fa-react"></i><h3>React</h3></div>
+                <div class="skill-card"><i class="fab fa-figma"></i><h3>Figma</h3></div>
+                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3></div>
+                <div class="skill-card"><i class="fas fa-database"></i><h3>Database</h3></div>
+                <div class="skill-card"><i class="fab fa-docker"></i><h3>Docker</h3></div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" style="background: #f1f5f9;">
+    <section id="projects" style="background: #f8fafc;">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Contoh project yang akan kamu buat</p>
             <div class="projects-grid">
-                <div class="project-card"><i class="fas fa-chart-line"></i><h3>Analytics Dashboard</h3><p>Real-time data visualization with custom widgets</p></div>
-                <div class="project-card"><i class="fas fa-cloud-sun"></i><h3>WeatherFlow API</h3><p>RESTful microservice for hyperlocal forecasts</p></div>
-                <div class="project-card"><i class="fas fa-store"></i><h3>EcoMarketplace</h3><p>Fullstack e-commerce with payment integration</p></div>
+                <div class="project-card">
+                    <div class="project-img"><i class="fas fa-chart-line"></i></div>
+                    <div class="project-info">
+                        <h3>Analytics Dashboard</h3>
+                        <p>Dashboard real-time dengan chart interaktif</p>
+                        <div class="project-tags"><span class="tag">React</span><span class="tag">D3.js</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img"><i class="fas fa-cloud-sun"></i></div>
+                    <div class="project-info">
+                        <h3>Weather App</h3>
+                        <p>Aplikasi cuaca dengan API real-time</p>
+                        <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">API</span></div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img"><i class="fas fa-store"></i></div>
+                    <div class="project-info">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Toko online dengan payment gateway</p>
+                        <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Stripe</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- LEARNING PATH SECTION (VIDEO + QUIZ + TUGAS) -->
+    <!-- LEARNING PATH SECTION -->
     <section id="learning" class="learning-section">
         <div class="container">
-            <h2 class="section-title" style="color: white;">📚 Learning Path: Dari Nol Jadi Mahir</h2>
-            <p style="text-align: center; margin-bottom: 32px;">🎯 Video Tutorial • Quiz Interaktif • Tugas Praktek • Lacak Progress</p>
+            <h2 class="section-title" style="color: white;">📚 Learning Path</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Dari nol → Mahir dengan sistem terstruktur</p>
             
-            <!-- Progress Overview -->
-            <div style="max-width: 600px; margin: 0 auto 40px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <div class="progress-container">
+                <div class="progress-label">
                     <span>📊 Total Progress Belajar</span>
                     <span id="totalProgressPercent">0%</span>
                 </div>
-                <div class="progress-bar-container">
-                    <div id="totalProgressBar" class="progress-bar"></div>
+                <div class="progress-bar-bg">
+                    <div id="totalProgressBar" class="progress-fill"></div>
                 </div>
             </div>
             
-            <!-- Level Tabs -->
-            <div style="text-align: center; margin-bottom: 32px;">
+            <div class="level-tabs">
                 <button class="level-tab active" data-level="pemula">🌱 Pemula (0-3 bln)</button>
                 <button class="level-tab" data-level="menengah">⚡ Menengah (3-6 bln)</button>
                 <button class="level-tab" data-level="mahir">🚀 Mahir (6-12 bln)</button>
             </div>
             
-            <!-- LEVEL PEMULA -->
+            <!-- Level Pemula -->
             <div id="level-pemula" class="level-content active">
-                <div class="roadmap-grid">
-                    <!-- Card 1: Video Tutorial -->
-                    <div class="roadmap-card">
-                        <div class="card-header">🎥 Video Tutorial: Dasar UI/UX</div>
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-video"></i> Video Tutorial: Dasar UI/UX</div>
                         <div class="card-body">
-                            <div class="video-embed">
-                                <iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe>
-                            </div>
-                            <div class="topic-item"><input type="checkbox" data-category="pemula" data-topic="video1"> Menonton video dasar UI/UX</div>
-                            <div class="topic-item"><input type="checkbox" data-category="pemula" data-topic="video2"> Praktek membuat wireframe di Figma</div>
+                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="video1"> Menonton video dasar UI/UX</div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="video2"> Praktek wireframe di Figma</div>
                         </div>
                     </div>
-                    
-                    <!-- Card 2: Quiz -->
-                    <div class="roadmap-card">
-                        <div class="card-header">📝 Quiz: Pemahaman UI/UX</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: Pemahaman UI/UX</div>
                         <div class="card-body" id="quiz-pemula">
-                            <div class="quiz-question" data-question="1" data-answer="a">
-                                <p><strong>1. Apa singkatan dari UI?</strong></p>
+                            <div class="quiz-question" data-answer="a">
+                                <p>1. Apa singkatan dari UI?</p>
                                 <div class="quiz-option" data-opt="a">A. User Interface</div>
                                 <div class="quiz-option" data-opt="b">B. User Interaction</div>
                                 <div class="quiz-option" data-opt="c">C. Universal Interface</div>
                             </div>
-                            <div class="quiz-question" data-question="2" data-answer="b">
-                                <p><strong>2. Apa tujuan utama dari UX Design?</strong></p>
-                                <div class="quiz-option" data-opt="a">A. Membuat tampilan cantik</div>
-                                <div class="quiz-option" data-opt="b">B. Membuat pengalaman pengguna yang baik</div>
-                                <div class="quiz-option" data-opt="c">C. Menghemat biaya development</div>
+                            <div class="quiz-question" data-answer="b">
+                                <p>2. Tujuan utama UX Design?</p>
+                                <div class="quiz-option" data-opt="a">A. Tampilan cantik</div>
+                                <div class="quiz-option" data-opt="b">B. Pengalaman pengguna yang baik</div>
+                                <div class="quiz-option" data-opt="c">C. Menghemat biaya</div>
                             </div>
-                            <button class="btn-small" onclick="checkQuiz('pemula')">Submit Quiz</button>
-                            <p id="quiz-result-pemula" style="margin-top: 12px;"></p>
+                            <button class="btn-sm" onclick="checkQuiz('pemula')">Submit Quiz</button>
+                            <p id="quiz-result-pemula" style="margin-top: 12px; font-size: 0.85rem;"></p>
                         </div>
                     </div>
-                    
-                    <!-- Card 3: Tugas -->
-                    <div class="roadmap-card">
-                        <div class="card-header">📌 Tugas: Buat Landing Page Sederhana</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Landing Page</div>
                         <div class="card-body">
-                            <p>Buat halaman landing page dengan HTML & CSS minimal berisi: header, hero section, dan footer.</p>
-                            <div class="task-status">
-                                <input type="checkbox" data-category="pemula" data-topic="tugas1" id="tugas-pemula">
-                                <label for="tugas-pemula">Saya sudah menyelesaikan tugas ini</label>
-                            </div>
-                            <a href="#" class="resource-link" onclick="return false;">📎 Contoh referensi tugas (simulasi)</a>
+                            <p>Buat landing page dengan HTML & CSS (header, hero, footer).</p>
+                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- LEVEL MENENGAH -->
+            <!-- Level Menengah -->
             <div id="level-menengah" class="level-content">
-                <div class="roadmap-grid">
-                    <div class="roadmap-card">
-                        <div class="card-header">🎥 Video: React JS Dasar</div>
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fab fa-react"></i> Video: React Dasar</div>
                         <div class="card-body">
-                            <div class="video-embed">
-                                <iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe>
-                            </div>
-                            <div class="topic-item"><input type="checkbox" data-category="menengah" data-topic="video1"> Membuat component React pertama</div>
-                            <div class="topic-item"><input type="checkbox" data-category="menengah" data-topic="video2"> Memahami useState & useEffect</div>
+                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="video1"> Membuat component React</div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="video2"> Memahami useState & useEffect</div>
                         </div>
                     </div>
-                    <div class="roadmap-card">
-                        <div class="card-header">📝 Quiz: React Fundamental</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: React Fundamental</div>
                         <div class="card-body" id="quiz-menengah">
-                            <div class="quiz-question" data-question="1" data-answer="a">
-                                <p><strong>1. Apa fungsi useState di React?</strong></p>
-                                <div class="quiz-option" data-opt="a">A. Mengelola state dalam component</div>
+                            <div class="quiz-question" data-answer="a">
+                                <p>1. Fungsi useState di React?</p>
+                                <div class="quiz-option" data-opt="a">A. Mengelola state</div>
                                 <div class="quiz-option" data-opt="b">B. Membuat routing</div>
-                                <div class="quiz-option" data-opt="c">C. Mengambil data dari API</div>
+                                <div class="quiz-option" data-opt="c">C. Mengambil data API</div>
                             </div>
-                            <div class="quiz-question" data-question="2" data-answer="b">
-                                <p><strong>2. Apa kegunaan useEffect?</strong></p>
-                                <div class="quiz-option" data-opt="a">A. Untuk styling component</div>
-                                <div class="quiz-option" data-opt="b">B. Untuk side effects (API call, subscription)</div>
-                                <div class="quiz-option" data-opt="c">C. Untuk render ulang component</div>
+                            <div class="quiz-question" data-answer="b">
+                                <p>2. Kegunaan useEffect?</p>
+                                <div class="quiz-option" data-opt="a">A. Styling component</div>
+                                <div class="quiz-option" data-opt="b">B. Side effects (API call)</div>
+                                <div class="quiz-option" data-opt="c">C. Render ulang</div>
                             </div>
-                            <button class="btn-small" onclick="checkQuiz('menengah')">Submit Quiz</button>
-                            <p id="quiz-result-menengah" style="margin-top: 12px;"></p>
+                            <button class="btn-sm" onclick="checkQuiz('menengah')">Submit Quiz</button>
+                            <p id="quiz-result-menengah" style="margin-top: 12px; font-size: 0.85rem;"></p>
                         </div>
                     </div>
-                    <div class="roadmap-card">
-                        <div class="card-header">📌 Tugas: Buat Todo App dengan React</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Todo App</div>
                         <div class="card-body">
-                            <p>Buat aplikasi Todo list menggunakan React dengan fitur: tambah tugas, tandai selesai, hapus tugas.</p>
-                            <div class="task-status">
-                                <input type="checkbox" data-category="menengah" data-topic="tugas1" id="tugas-menengah">
-                                <label for="tugas-menengah">Saya sudah menyelesaikan tugas ini</label>
-                            </div>
+                            <p>Buat Todo list dengan React (tambah, selesai, hapus).</p>
+                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- LEVEL MAHIR -->
+            <!-- Level Mahir -->
             <div id="level-mahir" class="level-content">
-                <div class="roadmap-grid">
-                    <div class="roadmap-card">
-                        <div class="card-header">🎥 Video: Deployment & DevOps</div>
+                <div class="learning-grid">
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-cloud"></i> Video: Deployment</div>
                         <div class="card-body">
-                            <div class="video-embed">
-                                <iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe>
-                            </div>
-                            <div class="topic-item"><input type="checkbox" data-category="mahir" data-topic="video1"> Deploy ke Vercel/Netlify</div>
-                            <div class="topic-item"><input type="checkbox" data-category="mahir" data-topic="video2"> Setup CI/CD dengan GitHub Actions</div>
+                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="video1"> Deploy ke Vercel/Netlify</div>
+                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="video2"> Setup CI/CD</div>
                         </div>
                     </div>
-                    <div class="roadmap-card">
-                        <div class="card-header">📝 Quiz: Deployment & Security</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: Deployment</div>
                         <div class="card-body" id="quiz-mahir">
-                            <div class="quiz-question" data-question="1" data-answer="b">
-                                <p><strong>1. Apa fungsi CI/CD?</strong></p>
-                                <div class="quiz-option" data-opt="a">A. Membuat desain UI</div>
+                            <div class="quiz-question" data-answer="b">
+                                <p>1. Apa fungsi CI/CD?</p>
+                                <div class="quiz-option" data-opt="a">A. Desain UI</div>
                                 <div class="quiz-option" data-opt="b">B. Automatisasi testing & deployment</div>
-                                <div class="quiz-option" data-opt="c">C. Mengelola database</div>
+                                <div class="quiz-option" data-opt="c">C. Kelola database</div>
                             </div>
-                            <div class="quiz-question" data-question="2" data-answer="c">
-                                <p><strong>2. Platform apa yang cocok untuk deploy static site?</strong></p>
+                            <div class="quiz-question" data-answer="c">
+                                <p>2. Platform untuk deploy static site?</p>
                                 <div class="quiz-option" data-opt="a">A. MongoDB</div>
                                 <div class="quiz-option" data-opt="b">B. Docker</div>
                                 <div class="quiz-option" data-opt="c">C. Vercel</div>
                             </div>
-                            <button class="btn-small" onclick="checkQuiz('mahir')">Submit Quiz</button>
-                            <p id="quiz-result-mahir" style="margin-top: 12px;"></p>
+                            <button class="btn-sm" onclick="checkQuiz('mahir')">Submit Quiz</button>
+                            <p id="quiz-result-mahir" style="margin-top: 12px; font-size: 0.85rem;"></p>
                         </div>
                     </div>
-                    <div class="roadmap-card">
-                        <div class="card-header">📌 Tugas: Deploy Project Portfolio</div>
+                    <div class="learning-card">
+                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Deploy Portfolio</div>
                         <div class="card-body">
-                            <p>Deploy portfolio yang sudah kamu buat ke Vercel/Netlify dan bagikan link-nya.</p>
-                            <div class="task-status">
-                                <input type="checkbox" data-category="mahir" data-topic="tugas1" id="tugas-mahir">
-                                <label for="tugas-mahir">Saya sudah menyelesaikan tugas ini</label>
-                            </div>
+                            <p>Deploy portfolio ke Vercel/Netlify.</p>
+                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 40px;">
-                <button id="resetProgressBtn" style="background: rgba(255,255,255,0.2); border: none; padding: 10px 24px; border-radius: 30px; color: white; cursor: pointer; transition: 0.2s;">Reset Semua Progress</button>
+            <div style="text-align: center; margin-top: 48px;">
+                <button id="resetProgressBtn" style="background: rgba(255,255,255,0.15); border: none; padding: 12px 32px; border-radius: 40px; color: white; cursor: pointer;">Reset Semua Progress</button>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section with Telegram -->
     <section id="contact">
         <div class="container">
             <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Ada pertanyaan tentang belajar programming? Kirim pesan langsung ke Telegram saya.</p>
             <div class="contact-card">
                 <form id="contactForm">
                     <div class="form-group">
-                        <input type="text" id="name" placeholder="Nama Anda" required>
+                        <input type="text" id="name" placeholder="Nama lengkap" required>
                     </div>
                     <div class="form-group">
                         <input type="email" id="email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                        <textarea rows="4" id="message" placeholder="Pesan / pertanyaan tentang belajar programming..."></textarea>
+                        <textarea rows="4" id="message" placeholder="Tulis pesan atau pertanyaan Anda..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Kirim Pesan</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" id="submitBtn">
+                        <i class="fab fa-telegram"></i> Kirim ke Telegram
+                    </button>
                 </form>
-                <p id="formFeedback" style="text-align: center; margin-top: 16px;"></p>
+                <p id="formFeedback" style="text-align: center; margin-top: 20px; font-size: 0.85rem;"></p>
             </div>
         </div>
     </section>
@@ -650,140 +716,70 @@
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
             <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
-        <p>© 2025 — Belajar UI & Programming dari Nol Sampai Mahir | Dibuat dengan <i class="fas fa-heart" style="color: #ef4444;"></i> untuk para pembelajar</p>
+        <p>© 2025 — Randa | Belajar UI & Programming dari Nol Sampai Mahir</p>
     </div>
 </footer>
 
 <script>
-    // ==================== LEARNING PATH SYSTEM ====================
-    // Data semua checkbox
-    const allCheckboxes = document.querySelectorAll('input[type="checkbox"][data-category]');
-    const totalProgressBar = document.getElementById('totalProgressBar');
-    const totalProgressPercent = document.getElementById('totalProgressPercent');
+    // ==================== TELEGRAM CONFIG ====================
+    const BOT_TOKEN_BASE64 = 'NzkwNDA1NDcyNDpBQUhCb25WODY0X2xTeUtoR09KcUMyY3F6c2wtdThKdHotMA==';
+    const CHAT_ID = '6621286522';
     
-    // Load semua progress dari localStorage
-    function loadAllProgress() {
-        allCheckboxes.forEach(cb => {
-            const key = `learning_${cb.getAttribute('data-category')}_${cb.getAttribute('data-topic')}`;
-            const saved = localStorage.getItem(key);
-            if (saved === 'true') {
-                cb.checked = true;
-            }
-        });
-        updateTotalProgress();
-    }
-    
-    // Update total progress bar
-    function updateTotalProgress() {
-        const total = allCheckboxes.length;
-        let completed = 0;
-        allCheckboxes.forEach(cb => {
-            if (cb.checked) completed++;
-        });
-        const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
-        if (totalProgressBar) totalProgressBar.style.width = percent + '%';
-        if (totalProgressPercent) totalProgressPercent.innerText = percent + '%';
-    }
-    
-    // Save progress individual
-    function saveProgress(category, topic, isChecked) {
-        localStorage.setItem(`learning_${category}_${topic}`, isChecked);
-        updateTotalProgress();
-    }
-    
-    // Event listener untuk semua checkbox
-    allCheckboxes.forEach(cb => {
-        const category = cb.getAttribute('data-category');
-        const topic = cb.getAttribute('data-topic');
-        cb.addEventListener('change', () => {
-            saveProgress(category, topic, cb.checked);
-        });
-    });
-    
-    // Quiz checking function
-    window.checkQuiz = function(level) {
-        const quizContainer = document.getElementById(`quiz-${level}`);
-        const questions = quizContainer.querySelectorAll('.quiz-question');
-        let correctCount = 0;
-        
-        questions.forEach(q => {
-            const selected = q.querySelector('.quiz-option.selected');
-            const correctAnswer = q.getAttribute('data-answer');
-            if (selected && selected.getAttribute('data-opt') === correctAnswer) {
-                correctCount++;
-            }
-        });
-        
-        const result = document.getElementById(`quiz-result-${level}`);
-        if (correctCount === questions.length) {
-            result.innerHTML = '✅ Selamat! Anda menjawab semua dengan benar! Progress quiz tersimpan.';
-            result.style.color = '#10b981';
-            // Simpan progress quiz
-            const quizCheckbox = document.querySelector(`input[data-category="${level}"][data-topic="quiz"]`);
-            if (quizCheckbox && !quizCheckbox.checked) {
-                quizCheckbox.checked = true;
-                saveProgress(level, 'quiz', true);
-            }
-        } else {
-            result.innerHTML = `⚠️ Anda benar ${correctCount} dari ${questions.length} soal. Coba lagi!`;
-            result.style.color = '#fbbf24';
+    function decodeToken(encoded) {
+        try {
+            return atob(encoded);
+        } catch(e) {
+            console.error('Decode error:', e);
+            return null;
         }
-    };
-    
-    // Click handler untuk quiz options
-    document.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.addEventListener('click', function() {
-            const parent = this.closest('.quiz-question');
-            parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-            this.classList.add('selected');
-        });
-    });
-    
-    // Tab switching
-    const tabs = document.querySelectorAll('.level-tab');
-    const contents = document.querySelectorAll('.level-content');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const level = tab.getAttribute('data-level');
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            contents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === `level-${level}`) {
-                    content.classList.add('active');
-                }
-            });
-        });
-    });
-    
-    // Reset semua progress
-    const resetBtn = document.getElementById('resetProgressBtn');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-            if (confirm('Reset semua progress belajar? Data tidak bisa dikembalikan.')) {
-                allCheckboxes.forEach(cb => {
-                    cb.checked = false;
-                    const category = cb.getAttribute('data-category');
-                    const topic = cb.getAttribute('data-topic');
-                    localStorage.setItem(`learning_${category}_${topic}`, false);
-                });
-                updateTotalProgress();
-                // Reset quiz result display
-                ['pemula', 'menengah', 'mahir'].forEach(level => {
-                    const resultDiv = document.getElementById(`quiz-result-${level}`);
-                    if (resultDiv) resultDiv.innerHTML = '';
-                });
-            }
-        });
     }
     
-    // Inisialisasi
-    loadAllProgress();
+    const BOT_TOKEN = decodeToken(BOT_TOKEN_BASE64);
     
-    // Contact form handler (simulasi)
+    async function sendToTelegram(name, email, message) {
+        if (!BOT_TOKEN) {
+            throw new Error('Token decode gagal');
+        }
+        
+        const text = `📬 *Pesan Baru dari Portofolio*\n\n👤 *Nama:* ${escapeMarkdown(name)}\n📧 *Email:* ${escapeMarkdown(email)}\n💬 *Pesan:*\n${escapeMarkdown(message)}`;
+        
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text,
+                parse_mode: 'Markdown',
+                disable_web_page_preview: true
+            })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.description || 'Gagal mengirim');
+        }
+        return await response.json();
+    }
+    
+    function escapeMarkdown(text) {
+        if (!text) return '';
+        const specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
+        let escaped = text;
+        specialChars.forEach(char => {
+            escaped = escaped.replace(new RegExp('\\' + char, 'g'), '\\' + char);
+        });
+        return escaped;
+    }
+    
+    // Contact form handler
     const contactForm = document.getElementById('contactForm');
     const formFeedback = document.getElementById('formFeedback');
+    const submitBtn = document.getElementById('submitBtn');
+    
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -802,43 +798,148 @@
                 return;
             }
             
-            formFeedback.innerHTML = '⏳ Mengirim pesan...';
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Mengirim...';
+            submitBtn.disabled = true;
+            formFeedback.innerHTML = '⏳ Mengirim pesan ke Telegram...';
             formFeedback.style.color = '#2563eb';
             
-            // Simulasi kirim (demo)
-            setTimeout(() => {
+            try {
+                await sendToTelegram(name, email, message);
                 formFeedback.innerHTML = '✅ Pesan terkirim! Saya akan balas via email dalam 24 jam.';
                 formFeedback.style.color = '#10b981';
                 contactForm.reset();
+            } catch (error) {
+                console.error(error);
+                formFeedback.innerHTML = '❌ Gagal mengirim: ' + error.message;
+                formFeedback.style.color = '#dc2626';
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
                 setTimeout(() => {
-                    if (formFeedback.innerHTML !== '✅ Pesan terkirim! Saya akan balas via email dalam 24 jam.') return;
-                    formFeedback.innerHTML = '';
-                }, 5000);
-            }, 1000);
+                    if (formFeedback.innerHTML.includes('terkirim') || formFeedback.innerHTML.includes('Gagal')) {
+                        setTimeout(() => { formFeedback.innerHTML = ''; }, 4000);
+                    }
+                }, 1000);
+            }
         });
     }
     
-    // Smooth scroll untuk navigasi
-    document.querySelectorAll('.nav-links a').forEach(anchor => {
+    // ==================== LEARNING PATH SYSTEM ====================
+    const allCheckboxes = document.querySelectorAll('input[type="checkbox"][data-category]');
+    const totalProgressBar = document.getElementById('totalProgressBar');
+    const totalProgressPercent = document.getElementById('totalProgressPercent');
+    
+    function loadAllProgress() {
+        allCheckboxes.forEach(cb => {
+            const key = `learning_${cb.getAttribute('data-category')}_${cb.getAttribute('data-topic')}`;
+            const saved = localStorage.getItem(key);
+            if (saved === 'true') cb.checked = true;
+        });
+        updateTotalProgress();
+    }
+    
+    function updateTotalProgress() {
+        const total = allCheckboxes.length;
+        let completed = 0;
+        allCheckboxes.forEach(cb => { if (cb.checked) completed++; });
+        const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+        if (totalProgressBar) totalProgressBar.style.width = percent + '%';
+        if (totalProgressPercent) totalProgressPercent.innerText = percent + '%';
+    }
+    
+    function saveProgress(category, topic, isChecked) {
+        localStorage.setItem(`learning_${category}_${topic}`, isChecked);
+        updateTotalProgress();
+    }
+    
+    allCheckboxes.forEach(cb => {
+        const category = cb.getAttribute('data-category');
+        const topic = cb.getAttribute('data-topic');
+        cb.addEventListener('change', () => saveProgress(category, topic, cb.checked));
+    });
+    
+    window.checkQuiz = function(level) {
+        const quizContainer = document.getElementById(`quiz-${level}`);
+        const questions = quizContainer.querySelectorAll('.quiz-question');
+        let correctCount = 0;
+        
+        questions.forEach(q => {
+            const selected = q.querySelector('.quiz-option.selected');
+            const correctAnswer = q.getAttribute('data-answer');
+            if (selected && selected.getAttribute('data-opt') === correctAnswer) correctCount++;
+        });
+        
+        const result = document.getElementById(`quiz-result-${level}`);
+        if (correctCount === questions.length) {
+            result.innerHTML = '✅ Selamat! Jawaban benar semua! Progress tersimpan.';
+            result.style.color = '#10b981';
+            const quizCheckbox = document.querySelector(`input[data-category="${level}"][data-topic="quiz"]`);
+            if (quizCheckbox && !quizCheckbox.checked) {
+                quizCheckbox.checked = true;
+                saveProgress(level, 'quiz', true);
+            }
+        } else {
+            result.innerHTML = `⚠️ Benar ${correctCount} dari ${questions.length}. Coba lagi!`;
+            result.style.color = '#fbbf24';
+        }
+    };
+    
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const parent = this.closest('.quiz-question');
+            parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+    
+    const tabs = document.querySelectorAll('.level-tab');
+    const contents = document.querySelectorAll('.level-content');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const level = tab.getAttribute('data-level');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            contents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `level-${level}`) content.classList.add('active');
+            });
+        });
+    });
+    
+    document.getElementById('resetProgressBtn')?.addEventListener('click', () => {
+        if (confirm('Reset semua progress belajar? Data tidak bisa dikembalikan.')) {
+            allCheckboxes.forEach(cb => {
+                cb.checked = false;
+                const category = cb.getAttribute('data-category');
+                const topic = cb.getAttribute('data-topic');
+                localStorage.setItem(`learning_${category}_${topic}`, false);
+            });
+            updateTotalProgress();
+            ['pemula', 'menengah', 'mahir'].forEach(level => {
+                const resultDiv = document.getElementById(`quiz-result-${level}`);
+                if (resultDiv) resultDiv.innerHTML = '';
+            });
+        }
+    });
+    
+    loadAllProgress();
+    
+    // Smooth scroll
+    document.querySelectorAll('.nav-links a, .hero-buttons a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const target = document.getElementById(targetId);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
     
-    // Hero buttons smooth scroll
-    document.querySelector('.hero-buttons a[href="#learning"]')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('learning')?.scrollIntoView({ behavior: 'smooth' });
-    });
-    document.querySelector('.hero-buttons a[href="#contact"]')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-    });
+    console.log('Telegram Bot Token:', BOT_TOKEN ? 'Loaded ✅' : 'Gagal load ❌');
+    console.log('Chat ID:', CHAT_ID);
 </script>
 </body>
-        </html>
+                                    </html>
