@@ -2,944 +2,464 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Randa | Portfolio & Learning Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Telegram Game - Space Clicker</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
         }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: #ffffff;
-            color: #0a0a0a;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 32px;
-        }
-        
-        /* Glass Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.85);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            z-index: 1000;
-            padding: 18px 0;
-        }
-        .nav-flex {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1e 0%, #0a0a1a 100%);
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            padding: 16px;
         }
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.02em;
-        }
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #1a1a1a;
-            transition: 0.2s;
-            font-size: 0.95rem;
-        }
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-        
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 0.95rem;
-        }
-        .btn-primary {
-            background: #0a0a0a;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #e2e8f0;
-            color: #1a1a1a;
-        }
-        .btn-outline:hover {
-            border-color: #2563eb;
-            color: #2563eb;
-            background: rgba(37, 99, 235, 0.05);
-        }
-        
-        /* Hero */
-        .hero {
-            padding: 140px 0 80px;
-        }
-        .hero-grid {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 60px;
-        }
-        .hero-content {
-            flex: 1;
-        }
-        .badge {
-            background: #eef2ff;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 24px;
-            color: #2563eb;
-        }
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            letter-spacing: -0.03em;
-        }
-        .highlight {
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .hero-desc {
-            font-size: 1.1rem;
-            color: #5b6e8c;
+
+        .game-container {
             max-width: 500px;
-            margin-bottom: 32px;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 32px;
-            margin-top: 40px;
-        }
-        .stat h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
-        .stat p {
-            font-size: 0.85rem;
-            color: #5b6e8c;
-        }
-        .hero-avatar {
-            flex: 0.7;
-            background: linear-gradient(135deg, #2563eb10, #7c3aed10);
-            border-radius: 50%;
+            width: 100%;
+            background: rgba(10, 20, 40, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 48px;
             padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(72, 187, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .header {
             text-align: center;
+            margin-bottom: 24px;
         }
-        .hero-avatar i {
-            font-size: 140px;
-            color: #2563eb;
-        }
-        
-        /* Section */
-        section {
-            padding: 80px 0;
-        }
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            text-align: center;
-            letter-spacing: -0.02em;
-        }
-        .section-subtitle {
-            text-align: center;
-            color: #5b6e8c;
-            margin-bottom: 60px;
-            font-size: 1rem;
-        }
-        
-        /* Skills */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .skill-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px 32px;
-            text-align: center;
-            border: 1px solid #eef2ff;
-            transition: all 0.2s;
-            min-width: 140px;
-        }
-        .skill-card:hover {
-            transform: translateY(-4px);
-            border-color: #2563eb;
-            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.1);
-        }
-        .skill-card i {
-            font-size: 2rem;
-            color: #2563eb;
-            margin-bottom: 12px;
-        }
-        .skill-card h3 {
-            font-size: 1rem;
-        }
-        
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-        }
-        .project-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid #eef2ff;
-            transition: all 0.2s;
-        }
-        .project-card:hover {
-            transform: translateY(-6px);
-            border-color: #2563eb40;
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.1);
-        }
-        .project-img {
-            height: 200px;
-            background: linear-gradient(135deg, #2563eb, #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .project-img i {
-            font-size: 3.5rem;
-            color: white;
-        }
-        .project-info {
-            padding: 24px;
-        }
-        .project-info h3 {
-            margin-bottom: 8px;
-        }
-        .project-tags {
-            display: flex;
-            gap: 10px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-        .tag {
-            background: #eef2ff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #2563eb;
-        }
-        
-        /* Learning Path */
-        .learning-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: white;
-        }
-        .level-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 48px;
-        }
-        .level-tab {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 32px;
+
+        .score-box {
+            background: #1a1f2e;
             border-radius: 60px;
-            color: white;
-            cursor: pointer;
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .score-label {
+            color: #8b9dc3;
             font-weight: 600;
-            transition: 0.2s;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
-        .level-tab.active {
-            background: #2563eb;
-            border-color: #2563eb;
+
+        .score-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #00e0ff;
+            text-shadow: 0 0 8px #00aaff;
+            line-height: 1;
         }
-        .level-content {
-            display: none;
+
+        .highscore {
+            font-size: 0.8rem;
+            color: #ffd966;
+            margin-left: 12px;
         }
-        .level-content.active {
-            display: block;
-        }
-        .learning-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 28px;
-        }
-        .learning-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 28px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: 0.2s;
-        }
-        .learning-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255,255,255,0.08);
-        }
-        .card-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .video-embed iframe {
-            width: 100%;
-            height: 180px;
-            border-radius: 16px;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-        .checkbox-item input {
-            width: 18px;
-            height: 18px;
-            accent-color: #10b981;
-        }
-        .quiz-option {
-            background: rgba(255,255,255,0.08);
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .quiz-option:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .quiz-option.selected {
-            background: #2563eb;
-        }
-        .btn-sm {
-            background: #10b981;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 16px;
-        }
-        .progress-container {
-            max-width: 500px;
-            margin: 0 auto 48px;
-        }
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .progress-bar-bg {
-            background: rgba(255,255,255,0.2);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            width: 0%;
-            height: 10px;
-            background: linear-gradient(90deg, #10b981, #34d399);
-            transition: width 0.3s;
-        }
-        
-        /* Contact */
-        .contact-card {
-            background: white;
-            border-radius: 32px;
-            padding: 48px;
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
-            border: 1px solid #eef2ff;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .form-group {
-            margin-bottom: 24px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 16px 20px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 20px;
-            font-family: 'Inter', sans-serif;
-            transition: 0.2s;
-            font-size: 0.95rem;
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 48px 0;
-            border-top: 1px solid #eef2ff;
-            color: #5b6e8c;
-        }
-        .social-links {
+
+        .canvas-area {
             display: flex;
             justify-content: center;
-            gap: 32px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
-        .social-links a {
-            color: #5b6e8c;
-            font-size: 1.3rem;
-            transition: 0.2s;
+
+        canvas {
+            background: #0c1122;
+            border-radius: 32px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.05);
+            cursor: pointer;
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(0, 255, 255, 0.4);
         }
-        .social-links a:hover {
-            color: #2563eb;
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        
-        @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .hero-grid { flex-direction: column-reverse; text-align: center; }
-            .hero-content h1 { font-size: 2.2rem; }
-            .hero-stats { justify-content: center; }
-            .nav-links { display: none; }
-            .level-tabs { flex-wrap: wrap; }
-            .learning-grid { grid-template-columns: 1fr; }
-            .contact-card { padding: 28px; }
+
+        .tg-btn {
+            background: linear-gradient(135deg, #2b5876, #1e3a5f);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            font-family: inherit;
+        }
+
+        .tg-btn:active {
+            transform: scale(0.96);
+        }
+
+        .tg-btn.primary {
+            background: linear-gradient(135deg, #0088cc, #005f8c);
+            box-shadow: 0 0 12px rgba(0,136,204,0.5);
+        }
+
+        .status {
+            background: rgba(0,0,0,0.5);
+            border-radius: 32px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaccff;
+        }
+
+        .telegram-log {
+            font-size: 0.7rem;
+            color: #5f7f9f;
+            margin-top: 12px;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        @media (max-width: 480px) {
+            .game-container { padding: 16px; }
+            .score-value { font-size: 1.8rem; }
+            .tg-btn { padding: 8px 18px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-
-<nav class="navbar">
-    <div class="container nav-flex">
-        <span class="logo"><i class="fas fa-code"></i> Randa</span>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#learning">Belajar</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+<div class="game-container">
+    <div class="header">
+        <div class="score-box">
+            <span class="score-label">⭐ SKOR</span>
+            <span class="score-value" id="scoreDisplay">0</span>
+            <span class="highscore" id="highScoreSpan">🏆 PB: 0</span>
+        </div>
     </div>
-</nav>
 
-<main>
-    <section id="home" class="hero">
-        <div class="container hero-grid">
-            <div class="hero-content">
-                <span class="badge"><i class="fas fa-rocket"></i> Mentor & Developer</span>
-                <h1>Belajar <span class="highlight">UI & Programming</span> Dari Nol Sampai Mahir</h1>
-                <p class="hero-desc">Panduan lengkap dengan video tutorial, quiz interaktif, dan tugas praktek. Progress tersimpan otomatis.</p>
-                <div class="hero-buttons">
-                    <a href="#learning" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Mulai Belajar</a>
-                    <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Hubungi Saya</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat"><h3>3+</h3><p>Tahun Pengalaman</p></div>
-                    <div class="stat"><h3>50+</h3><p>Siswa Dibimbing</p></div>
-                    <div class="stat"><h3>20+</h3><p>Project Selesai</p></div>
-                </div>
-            </div>
-            <div class="hero-avatar">
-                <i class="fas fa-user-astronaut"></i>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">Tech Stack & Tools</h2>
-            <p class="section-subtitle">Yang akan kamu pelajari dalam perjalanan ini</p>
-            <div class="skills-grid">
-                <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML5</h3></div>
-                <div class="skill-card"><i class="fab fa-css3-alt"></i><h3>CSS3</h3></div>
-                <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript</h3></div>
-                <div class="skill-card"><i class="fab fa-react"></i><h3>React</h3></div>
-                <div class="skill-card"><i class="fab fa-figma"></i><h3>Figma</h3></div>
-                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3></div>
-                <div class="skill-card"><i class="fas fa-database"></i><h3>Database</h3></div>
-                <div class="skill-card"><i class="fab fa-docker"></i><h3>Docker</h3></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" style="background: #f8fafc;">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">Contoh project yang akan kamu buat</p>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img"><i class="fas fa-chart-line"></i></div>
-                    <div class="project-info">
-                        <h3>Analytics Dashboard</h3>
-                        <p>Dashboard real-time dengan chart interaktif</p>
-                        <div class="project-tags"><span class="tag">React</span><span class="tag">D3.js</span></div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img"><i class="fas fa-cloud-sun"></i></div>
-                    <div class="project-info">
-                        <h3>Weather App</h3>
-                        <p>Aplikasi cuaca dengan API real-time</p>
-                        <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">API</span></div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img"><i class="fas fa-store"></i></div>
-                    <div class="project-info">
-                        <h3>E-Commerce Platform</h3>
-                        <p>Toko online dengan payment gateway</p>
-                        <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Stripe</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LEARNING PATH SECTION -->
-    <section id="learning" class="learning-section">
-        <div class="container">
-            <h2 class="section-title" style="color: white;">📚 Learning Path</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Dari nol → Mahir dengan sistem terstruktur</p>
-            
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>📊 Total Progress Belajar</span>
-                    <span id="totalProgressPercent">0%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div id="totalProgressBar" class="progress-fill"></div>
-                </div>
-            </div>
-            
-            <div class="level-tabs">
-                <button class="level-tab active" data-level="pemula">🌱 Pemula (0-3 bln)</button>
-                <button class="level-tab" data-level="menengah">⚡ Menengah (3-6 bln)</button>
-                <button class="level-tab" data-level="mahir">🚀 Mahir (6-12 bln)</button>
-            </div>
-            
-            <!-- Level Pemula -->
-            <div id="level-pemula" class="level-content active">
-                <div class="learning-grid">
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-video"></i> Video Tutorial: Dasar UI/UX</div>
-                        <div class="card-body">
-                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="video1"> Menonton video dasar UI/UX</div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="video2"> Praktek wireframe di Figma</div>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: Pemahaman UI/UX</div>
-                        <div class="card-body" id="quiz-pemula">
-                            <div class="quiz-question" data-answer="a">
-                                <p>1. Apa singkatan dari UI?</p>
-                                <div class="quiz-option" data-opt="a">A. User Interface</div>
-                                <div class="quiz-option" data-opt="b">B. User Interaction</div>
-                                <div class="quiz-option" data-opt="c">C. Universal Interface</div>
-                            </div>
-                            <div class="quiz-question" data-answer="b">
-                                <p>2. Tujuan utama UX Design?</p>
-                                <div class="quiz-option" data-opt="a">A. Tampilan cantik</div>
-                                <div class="quiz-option" data-opt="b">B. Pengalaman pengguna yang baik</div>
-                                <div class="quiz-option" data-opt="c">C. Menghemat biaya</div>
-                            </div>
-                            <button class="btn-sm" onclick="checkQuiz('pemula')">Submit Quiz</button>
-                            <p id="quiz-result-pemula" style="margin-top: 12px; font-size: 0.85rem;"></p>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Landing Page</div>
-                        <div class="card-body">
-                            <p>Buat landing page dengan HTML & CSS (header, hero, footer).</p>
-                            <div class="checkbox-item"><input type="checkbox" data-category="pemula" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Level Menengah -->
-            <div id="level-menengah" class="level-content">
-                <div class="learning-grid">
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fab fa-react"></i> Video: React Dasar</div>
-                        <div class="card-body">
-                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="video1"> Membuat component React</div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="video2"> Memahami useState & useEffect</div>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: React Fundamental</div>
-                        <div class="card-body" id="quiz-menengah">
-                            <div class="quiz-question" data-answer="a">
-                                <p>1. Fungsi useState di React?</p>
-                                <div class="quiz-option" data-opt="a">A. Mengelola state</div>
-                                <div class="quiz-option" data-opt="b">B. Membuat routing</div>
-                                <div class="quiz-option" data-opt="c">C. Mengambil data API</div>
-                            </div>
-                            <div class="quiz-question" data-answer="b">
-                                <p>2. Kegunaan useEffect?</p>
-                                <div class="quiz-option" data-opt="a">A. Styling component</div>
-                                <div class="quiz-option" data-opt="b">B. Side effects (API call)</div>
-                                <div class="quiz-option" data-opt="c">C. Render ulang</div>
-                            </div>
-                            <button class="btn-sm" onclick="checkQuiz('menengah')">Submit Quiz</button>
-                            <p id="quiz-result-menengah" style="margin-top: 12px; font-size: 0.85rem;"></p>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Todo App</div>
-                        <div class="card-body">
-                            <p>Buat Todo list dengan React (tambah, selesai, hapus).</p>
-                            <div class="checkbox-item"><input type="checkbox" data-category="menengah" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Level Mahir -->
-            <div id="level-mahir" class="level-content">
-                <div class="learning-grid">
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-cloud"></i> Video: Deployment</div>
-                        <div class="card-body">
-                            <div class="video-embed"><iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9gY9GZBkK7Nl6M9YpEwYmQp" allowfullscreen></iframe></div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="video1"> Deploy ke Vercel/Netlify</div>
-                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="video2"> Setup CI/CD</div>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-quiz"></i> Quiz: Deployment</div>
-                        <div class="card-body" id="quiz-mahir">
-                            <div class="quiz-question" data-answer="b">
-                                <p>1. Apa fungsi CI/CD?</p>
-                                <div class="quiz-option" data-opt="a">A. Desain UI</div>
-                                <div class="quiz-option" data-opt="b">B. Automatisasi testing & deployment</div>
-                                <div class="quiz-option" data-opt="c">C. Kelola database</div>
-                            </div>
-                            <div class="quiz-question" data-answer="c">
-                                <p>2. Platform untuk deploy static site?</p>
-                                <div class="quiz-option" data-opt="a">A. MongoDB</div>
-                                <div class="quiz-option" data-opt="b">B. Docker</div>
-                                <div class="quiz-option" data-opt="c">C. Vercel</div>
-                            </div>
-                            <button class="btn-sm" onclick="checkQuiz('mahir')">Submit Quiz</button>
-                            <p id="quiz-result-mahir" style="margin-top: 12px; font-size: 0.85rem;"></p>
-                        </div>
-                    </div>
-                    <div class="learning-card">
-                        <div class="card-header"><i class="fas fa-tasks"></i> Tugas: Deploy Portfolio</div>
-                        <div class="card-body">
-                            <p>Deploy portfolio ke Vercel/Netlify.</p>
-                            <div class="checkbox-item"><input type="checkbox" data-category="mahir" data-topic="tugas1"> Saya sudah menyelesaikan tugas ini</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 48px;">
-                <button id="resetProgressBtn" style="background: rgba(255,255,255,0.15); border: none; padding: 12px 32px; border-radius: 40px; color: white; cursor: pointer;">Reset Semua Progress</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section with Telegram -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Let's Connect</h2>
-            <p class="section-subtitle">Ada pertanyaan tentang belajar programming? Kirim pesan langsung ke Telegram saya.</p>
-            <div class="contact-card">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Nama lengkap" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="4" id="message" placeholder="Tulis pesan atau pertanyaan Anda..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" id="submitBtn">
-                        <i class="fab fa-telegram"></i> Kirim ke Telegram
-                    </button>
-                </form>
-                <p id="formFeedback" style="text-align: center; margin-top: 20px; font-size: 0.85rem;"></p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-x-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-        <p>© 2025 — Randa | Belajar UI & Programming dari Nol Sampai Mahir</p>
+    <div class="canvas-area">
+        <canvas id="gameCanvas" width="450" height="450" style="width:100%; height:auto; max-width:450px; aspect-ratio:1/1"></canvas>
     </div>
-</footer>
+
+    <div class="controls">
+        <button class="tg-btn" id="resetBtn">🔄 Ulang Game</button>
+        <button class="tg-btn primary" id="sendScoreBtn">📤 Kirim Skor ke Telegram</button>
+    </div>
+    <div class="status" id="gameStatus">
+        ✨ Klik pada bintang biru / target untuk mendapat skor!
+    </div>
+    <div class="telegram-log" id="telegramLog">
+        💡 Skor akan dikirim ke bot Telegram saat tombol ditekan.
+    </div>
+</div>
 
 <script>
-    // ==================== TELEGRAM CONFIG ====================
-    const BOT_TOKEN_BASE64 = 'NzkwNDA1NDcyNDpBQUhCb25WODY0X2xTeUtoR09KcUMyY3F6c2wtdThKdHotMA==';
-    const CHAT_ID = '6621286522';
-    
-    function decodeToken(encoded) {
-        try {
-            return atob(encoded);
-        } catch(e) {
-            console.error('Decode error:', e);
-            return null;
-        }
-    }
-    
-    const BOT_TOKEN = decodeToken(BOT_TOKEN_BASE64);
-    
-    async function sendToTelegram(name, email, message) {
-        if (!BOT_TOKEN) {
-            throw new Error('Token decode gagal');
-        }
-        
-        const text = `📬 *Pesan Baru dari Portofolio*\n\n👤 *Nama:* ${escapeMarkdown(name)}\n📧 *Email:* ${escapeMarkdown(email)}\n💬 *Pesan:*\n${escapeMarkdown(message)}`;
-        
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-        
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: text,
-                parse_mode: 'Markdown',
-                disable_web_page_preview: true
-            })
-        });
-        
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.description || 'Gagal mengirim');
-        }
-        return await response.json();
-    }
-    
-    function escapeMarkdown(text) {
-        if (!text) return '';
-        const specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
-        let escaped = text;
-        specialChars.forEach(char => {
-            escaped = escaped.replace(new RegExp('\\' + char, 'g'), '\\' + char);
-        });
-        return escaped;
-    }
-    
-    // Contact form handler
-    const contactForm = document.getElementById('contactForm');
-    const formFeedback = document.getElementById('formFeedback');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            
-            if (!name || !email || !message) {
-                formFeedback.innerHTML = '❌ Semua field harus diisi!';
-                formFeedback.style.color = '#dc2626';
-                return;
-            }
-            if (!email.includes('@')) {
-                formFeedback.innerHTML = '❌ Email tidak valid!';
-                formFeedback.style.color = '#dc2626';
-                return;
-            }
-            
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Mengirim...';
-            submitBtn.disabled = true;
-            formFeedback.innerHTML = '⏳ Mengirim pesan ke Telegram...';
-            formFeedback.style.color = '#2563eb';
-            
-            try {
-                await sendToTelegram(name, email, message);
-                formFeedback.innerHTML = '✅ Pesan terkirim! Saya akan balas via email dalam 24 jam.';
-                formFeedback.style.color = '#10b981';
-                contactForm.reset();
-            } catch (error) {
-                console.error(error);
-                formFeedback.innerHTML = '❌ Gagal mengirim: ' + error.message;
-                formFeedback.style.color = '#dc2626';
-            } finally {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                setTimeout(() => {
-                    if (formFeedback.innerHTML.includes('terkirim') || formFeedback.innerHTML.includes('Gagal')) {
-                        setTimeout(() => { formFeedback.innerHTML = ''; }, 4000);
-                    }
-                }, 1000);
-            }
-        });
-    }
-    
-    // ==================== LEARNING PATH SYSTEM ====================
-    const allCheckboxes = document.querySelectorAll('input[type="checkbox"][data-category]');
-    const totalProgressBar = document.getElementById('totalProgressBar');
-    const totalProgressPercent = document.getElementById('totalProgressPercent');
-    
-    function loadAllProgress() {
-        allCheckboxes.forEach(cb => {
-            const key = `learning_${cb.getAttribute('data-category')}_${cb.getAttribute('data-topic')}`;
-            const saved = localStorage.getItem(key);
-            if (saved === 'true') cb.checked = true;
-        });
-        updateTotalProgress();
-    }
-    
-    function updateTotalProgress() {
-        const total = allCheckboxes.length;
-        let completed = 0;
-        allCheckboxes.forEach(cb => { if (cb.checked) completed++; });
-        const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
-        if (totalProgressBar) totalProgressBar.style.width = percent + '%';
-        if (totalProgressPercent) totalProgressPercent.innerText = percent + '%';
-    }
-    
-    function saveProgress(category, topic, isChecked) {
-        localStorage.setItem(`learning_${category}_${topic}`, isChecked);
-        updateTotalProgress();
-    }
-    
-    allCheckboxes.forEach(cb => {
-        const category = cb.getAttribute('data-category');
-        const topic = cb.getAttribute('data-topic');
-        cb.addEventListener('change', () => saveProgress(category, topic, cb.checked));
-    });
-    
-    window.checkQuiz = function(level) {
-        const quizContainer = document.getElementById(`quiz-${level}`);
-        const questions = quizContainer.querySelectorAll('.quiz-question');
-        let correctCount = 0;
-        
-        questions.forEach(q => {
-            const selected = q.querySelector('.quiz-option.selected');
-            const correctAnswer = q.getAttribute('data-answer');
-            if (selected && selected.getAttribute('data-opt') === correctAnswer) correctCount++;
-        });
-        
-        const result = document.getElementById(`quiz-result-${level}`);
-        if (correctCount === questions.length) {
-            result.innerHTML = '✅ Selamat! Jawaban benar semua! Progress tersimpan.';
-            result.style.color = '#10b981';
-            const quizCheckbox = document.querySelector(`input[data-category="${level}"][data-topic="quiz"]`);
-            if (quizCheckbox && !quizCheckbox.checked) {
-                quizCheckbox.checked = true;
-                saveProgress(level, 'quiz', true);
-            }
-        } else {
-            result.innerHTML = `⚠️ Benar ${correctCount} dari ${questions.length}. Coba lagi!`;
-            result.style.color = '#fbbf24';
-        }
+    // ========================
+    // GAME: STAR CATCHER (Klik target)
+    // ========================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreSpan = document.getElementById('scoreDisplay');
+    const highScoreSpan = document.getElementById('highScoreSpan');
+    const gameStatusDiv = document.getElementById('gameStatus');
+    const telegramLogDiv = document.getElementById('telegramLog');
+
+    // Ukuran canvas (fixed 450x450)
+    const SIZE = 450;
+    canvas.width = SIZE;
+    canvas.height = SIZE;
+
+    let score = 0;
+    let highScore = localStorage.getItem('tgGameHighScore') ? parseInt(localStorage.getItem('tgGameHighScore')) : 0;
+    highScoreSpan.innerText = `🏆 PB: ${highScore}`;
+
+    // Target object
+    let target = {
+        x: SIZE/2,
+        y: SIZE/2,
+        radius: 24,
+        active: true
     };
-    
-    document.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.addEventListener('click', function() {
-            const parent = this.closest('.quiz-question');
-            parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-            this.classList.add('selected');
-        });
-    });
-    
-    const tabs = document.querySelectorAll('.level-tab');
-    const contents = document.querySelectorAll('.level-content');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const level = tab.getAttribute('data-level');
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            contents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === `level-${level}`) content.classList.add('active');
-            });
-        });
-    });
-    
-    document.getElementById('resetProgressBtn')?.addEventListener('click', () => {
-        if (confirm('Reset semua progress belajar? Data tidak bisa dikembalikan.')) {
-            allCheckboxes.forEach(cb => {
-                cb.checked = false;
-                const category = cb.getAttribute('data-category');
-                const topic = cb.getAttribute('data-topic');
-                localStorage.setItem(`learning_${category}_${topic}`, false);
-            });
-            updateTotalProgress();
-            ['pemula', 'menengah', 'mahir'].forEach(level => {
-                const resultDiv = document.getElementById(`quiz-result-${level}`);
-                if (resultDiv) resultDiv.innerHTML = '';
+
+    // Animasi partikel sederhana untuk efek klik
+    let particles = [];
+
+    // Fungsi generate posisi random
+    function randomPosition() {
+        const margin = target.radius + 8;
+        return {
+            x: Math.random() * (SIZE - margin * 2) + margin,
+            y: Math.random() * (SIZE - margin * 2) + margin
+        };
+    }
+
+    // Pindah target ke posisi baru
+    function relocateTarget() {
+        const newPos = randomPosition();
+        target.x = newPos.x;
+        target.y = newPos.y;
+        // efek visual tidak diperlukan reset radius
+    }
+
+    // Tambah skor
+    function addScore(points) {
+        score += points;
+        scoreSpan.innerText = score;
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('tgGameHighScore', highScore);
+            highScoreSpan.innerText = `🏆 PB: ${highScore}`;
+            gameStatusDiv.innerHTML = '🎉 REKOR BARU! 🎉';
+            setTimeout(() => {
+                if (gameStatusDiv) gameStatusDiv.innerHTML = '✨ Klik pada bintang biru / target untuk mendapat skor!';
+            }, 1200);
+        } else {
+            gameStatusDiv.innerHTML = `+${points} ✨ Skor: ${score}`;
+            setTimeout(() => {
+                if (gameStatusDiv && !gameStatusDiv.innerHTML.includes('REKOR')) 
+                    gameStatusDiv.innerHTML = '✨ Klik pada bintang biru / target untuk mendapat skor!';
+            }, 600);
+        }
+    }
+
+    // Reset game
+    function resetGame() {
+        score = 0;
+        scoreSpan.innerText = "0";
+        gameStatusDiv.innerHTML = "🔄 Game direset. Mulai klik!";
+        relocateTarget();
+        particles = [];
+        setTimeout(() => {
+            if (gameStatusDiv) gameStatusDiv.innerHTML = '✨ Klik pada bintang biru / target untuk mendapat skor!';
+        }, 800);
+    }
+
+    // Efek partikel saat klik
+    function addExplosion(px, py) {
+        for (let i = 0; i < 12; i++) {
+            particles.push({
+                x: px, y: py,
+                vx: (Math.random() - 0.5) * 5,
+                vy: (Math.random() - 0.5) * 5 - 1.5,
+                life: 1.0,
+                size: Math.random() * 5 + 2,
+                color: `hsl(${Math.random() * 60 + 200}, 80%, 60%)`
             });
         }
-    });
-    
-    loadAllProgress();
-    
-    // Smooth scroll
-    document.querySelectorAll('.nav-links a, .hero-buttons a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const target = document.getElementById(targetId);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Update partikel
+    function updateParticles() {
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].x += particles[i].vx;
+            particles[i].y += particles[i].vy;
+            particles[i].life -= 0.03;
+            if (particles[i].life <= 0 || particles[i].y > SIZE + 50 || particles[i].x < -50) {
+                particles.splice(i,1);
+                i--;
             }
-        });
-    });
+        }
+    }
+
+    // Draw target (bintang / inti ungu kebiruan)
+    function drawTarget() {
+        ctx.save();
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = "#3b82f6";
+        // Lingkaran gradasi
+        const grad = ctx.createRadialGradient(target.x-5, target.y-5, 5, target.x, target.y, target.radius);
+        grad.addColorStop(0, '#3b82f6');
+        grad.addColorStop(1, '#1e3a8a');
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, target.radius, 0, Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, target.radius-4, 0, Math.PI*2);
+        ctx.fillStyle = '#60a5fa';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, target.radius-8, 0, Math.PI*2);
+        ctx.fillStyle = '#bfdbfe';
+        ctx.fill();
+        // mata lucu
+        ctx.fillStyle = "#0f172a";
+        ctx.beginPath();
+        ctx.arc(target.x-8, target.y-6, 3, 0, Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(target.x+8, target.y-6, 3, 0, Math.PI*2);
+        ctx.fill();
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(target.x-9, target.y-7, 1, 0, Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(target.x+7, target.y-7, 1, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    // Background bintang gelap
+    function drawBackground() {
+        ctx.fillStyle = '#0c1122';
+        ctx.fillRect(0,0,SIZE,SIZE);
+        for(let i=0;i<80;i++) {
+            if (i%2 === 0) continue;
+            ctx.fillStyle = `rgba(255,255,200,${Math.random()*0.5+0.2})`;
+            ctx.beginPath();
+            ctx.arc( (i*131)%SIZE, (i*253)%SIZE, 1.5, 0, Math.PI*2);
+            ctx.fill();
+        }
+    }
+
+    function drawParticles() {
+        for (let p of particles) {
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+            ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    // Animasi loop
+    function animate() {
+        drawBackground();
+        drawTarget();
+        drawParticles();
+        updateParticles();
+        requestAnimationFrame(animate);
+    }
+
+    // Event klik canvas
+    function handleCanvasClick(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        let canvasX = (clientX - rect.left) * scaleX;
+        let canvasY = (clientY - rect.top) * scaleY;
+        if (canvasX >= 0 && canvasX <= SIZE && canvasY >= 0 && canvasY <= SIZE) {
+            const dx = canvasX - target.x;
+            const dy = canvasY - target.y;
+            const dist = Math.sqrt(dx*dx+dy*dy);
+            if (dist <= target.radius) {
+                // klik tepat pada target
+                addScore(1);
+                addExplosion(target.x, target.y);
+                relocateTarget();
+            }
+        }
+    }
+
+    canvas.addEventListener('click', handleCanvasClick);
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let canvasX = (touch.clientX - rect.left) * scaleX;
+        let canvasY = (touch.clientY - rect.top) * scaleY;
+        if (canvasX >= 0 && canvasX <= SIZE && canvasY >= 0 && canvasY <= SIZE) {
+            const dx = canvasX - target.x;
+            const dy = canvasY - target.y;
+            if (Math.hypot(dx,dy) <= target.radius) {
+                addScore(1);
+                addExplosion(target.x, target.y);
+                relocateTarget();
+            }
+        }
+    }, {passive: false});
+
+    document.getElementById('resetBtn').addEventListener('click', () => resetGame());
     
-    console.log('Telegram Bot Token:', BOT_TOKEN ? 'Loaded ✅' : 'Gagal load ❌');
-    console.log('Chat ID:', CHAT_ID);
+    // ========================
+    // INTEGRASI TELEGRAM BOT (mengirim skor)
+    // ========================
+    // GANTI DENGAN TOKEN BOT DAN CHAT ID YANG SESUAI
+    // Untuk keperluan demo, gunakan mekanisme WebApp data atau bisa kirim ke endpoint sendiri.
+    // Disini kita gunakan fetch ke bot Telegram (harus disetup)
+    // Catatan: Untuk keamanan, sebaiknya lakukan via backend proxy. Tapi demo ini mengirim langsung.
+    // Anda perlu mengganti BOT_TOKEN dan CHAT_ID dengan milik sendiri.
+    const BOT_TOKEN = "NzkwNDA1NDcyNDpBQUhCb25WODY0X2xTeUtoR09KcUMyY3F6c2wtdThKdHotMA==";   // Ganti dengan token bot Telegram
+    const CHAT_ID = "6621286522";       // Ganti dengan ID chat user / group
+
+    async function sendScoreToTelegram(playerScore) {
+        if (!BOT_TOKEN || BOT_TOKEN === "YOUR_BOT_TOKEN_HERE") {
+            telegramLogDiv.innerHTML = "⚠️ Konfigurasi Bot Token belum diatur. Ganti BOT_TOKEN & CHAT_ID di script.";
+            console.warn("Token belum diisi");
+            return false;
+        }
+        const message = `🎮 *Telegram Game Score* 🎮\nSkor terbaru: *${playerScore}* poin\n🏆 Tertinggi: *${highScore}*\n✨ Selamat bermain! ✨`;
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            });
+            const data = await response.json();
+            if (data.ok) {
+                telegramLogDiv.innerHTML = "✅ Skor berhasil dikirim ke Telegram Bot! ✅";
+                setTimeout(() => {
+                    if (telegramLogDiv) telegramLogDiv.innerHTML = "💡 Skor akan dikirim ke bot Telegram saat tombol ditekan.";
+                }, 3000);
+                return true;
+            } else {
+                telegramLogDiv.innerHTML = `❌ Gagal: ${data.description}`;
+                return false;
+            }
+        } catch (err) {
+            telegramLogDiv.innerHTML = `⚠️ Error koneksi: ${err.message}`;
+            return false;
+        }
+    }
+
+    const sendBtn = document.getElementById('sendScoreBtn');
+    sendBtn.addEventListener('click', async () => {
+        gameStatusDiv.innerHTML = "📤 Mengirim skor ke Telegram...";
+        const success = await sendScoreToTelegram(score);
+        if (success) {
+            gameStatusDiv.innerHTML = "✔️ Skor terkirim!";
+        } else {
+            gameStatusDiv.innerHTML = "❌ Gagal kirim, cek token/chat ID.";
+        }
+        setTimeout(() => {
+            if (gameStatusDiv && !gameStatusDiv.innerHTML.includes('REKOR'))
+                gameStatusDiv.innerHTML = "✨ Klik pada bintang biru / target untuk mendapat skor!";
+        }, 2000);
+    });
+
+    // Mulai game
+    relocateTarget();
+    animate();
 </script>
 </body>
-                                    </html>
+</html>
