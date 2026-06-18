@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard · UIX Design</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div>
+                <h1>📊 Dashboard</h1>
+                <div style="color:#94a3b8; font-size:0.8rem; margin-top:4px;">
+                    Monitoring aktivitas login & registrasi
+                </div>
+            </div>
+            <div class="user-info">
+                <span>👤 <span class="email" id="userEmail">user@email.com</span></span>
+                <button class="btn-refresh" id="refreshBtn">🔄 Refresh</button>
+                <button class="btn-logout" id="logoutBtn">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number" id="totalCount">0</div>
+                <div class="label">Total Aktivitas</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="loginCount">0</div>
+                <div class="label">🔐 Login</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="registerCount">0</div>
+                <div class="label">📝 Registrasi</div>
+            </div>
+        </div>
+
+        <!-- Filter & Table -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+            <div style="color:#94a3b8; font-size:0.85rem;">📋 Riwayat Aktivitas</div>
+            <div>
+                <label style="color:#94a3b8; font-size:0.8rem; margin-right:8px;">Filter:</label>
+                <select id="filterSelect" style="background:#0d1117; border:1px solid #30363d; border-radius:8px; color:#e6edf3; padding:6px 12px; font-family:'Inter',sans-serif;">
+                    <option value="all">Semua</option>
+                    <option value="login">Login</option>
+                    <option value="register">Registrasi</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipe</th>
+                        <th>Email</th>
+                        <th>Nama</th>
+                        <th>Waktu</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr class="empty-row">
+                        <td colspan="4">Memuat data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="status-msg" id="statusMsg" style="margin-top:16px;"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="particles.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
