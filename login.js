@@ -13,11 +13,13 @@ const firebaseConfig = {
 
 // Inisialisasi Firebase
 let db;
+let auth;
 let firebaseInitialized = false;
 
 try {
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
+    auth = firebase.auth(); // <- TAMBAHKAN INI
     firebase.firestore().enablePersistence()
         .then(() => console.log('✅ Firestore persistence enabled'))
         .catch(err => console.warn('Persistence error:', err));
@@ -33,7 +35,7 @@ try {
 }
 
 // ============================================================
-//  FORM LOGIN HANDLER
+//  FORM LOGIN HANDLER (dengan Firebase Auth)
 // ============================================================
 const form = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
@@ -43,8 +45,8 @@ const btnText = document.getElementById('btnText');
 const btnLoader = document.getElementById('btnLoader');
 const statusMsg = document.getElementById('statusMsg');
 
-// Simpan data login ke Firestore
-async function saveLoginToFirestore(email, timestamp) {
+// Simpan data login ke Firestore (untuk history)
+async function saveLoginToFirestore(email, timestamp, uid) {
     if (!firebaseInitialized || !db) {
         console.warn('Firebase tidak aktif, data tidak tersimpan.');
         return false;
@@ -53,6 +55,7 @@ async function saveLoginToFirestore(email, timestamp) {
         await db.collection('logins').add({
             email: email,
             timestamp: timestamp,
+            uid: uid || 'unknown',
             userAgent: navigator.userAgent || 'unknown',
             source: 'login_form_uix'
         });
@@ -60,37 +63,6 @@ async function saveLoginToFirestore(email, timestamp) {
         return true;
     } catch (err) {
         console.error('❌ Gagal simpan ke Firestore:', err);
-        return false;
-    }
-}
-
-// Cek apakah email terdaftar di sistem
-async function checkEmailRegistered(email) {
-    if (!firebaseInitialized || !db) {
-        return false;
-    }
-
-    try {
-        // Cek di collection users
-        const userSnapshot = await db.collection('users')
-            .where('email', '==', email)
-            .limit(1)
-            .get();
-
-        if (!userSnapshot.empty) {
-            return true;
-        }
-
-        // Cek di collection logins
-        const loginSnapshot = await db.collection('logins')
-            .where('email', '==', email)
-            .limit(1)
-            .get();
-
-        return !loginSnapshot.empty;
-
-    } catch (err) {
-        console.error('Error checking email:', err);
         return false;
     }
 }
@@ -127,7 +99,7 @@ function hideStatus() {
     statusMsg.textContent = '';
 }
 
-// Submit handler
+// Submit handler dengan Firebase Auth
 if (form) {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -143,40 +115,58 @@ if (form) {
         btnText.style.display = 'none';
         btnLoader.style.display = 'inline';
 
-        // Simulasi proses login
-        await new Promise(resolve => setTimeout(resolve, 900));
+        try {
+            // 🔐 LOGIN DENGAN FIREBASE AUTH
+            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            
+            console.log('✅ Login sukses:', user.email, 'UID:', user.uid);
 
-        // Cek apakah email terdaftar
-        const isRegistered = await checkEmailRegistered(email);
+            // Simpan history login ke Firestore
+            const now = new Date().toISOString();
+            await saveLoginToFirestore(email, now, user.uid);
 
-        // Simpan data login ke Firestore
-        const now = new Date().toISOString();
-        const saved = await saveLoginToFirestore(email, now);
+            showStatus(`✅ Login berhasil! Selamat datang, ${email}`, 'success');
+            
+            // Redirect ke dashboard
+            setTimeout(() => {
+                window.location.href = `dashboard.html?email=${encodeURIComponent(email)}&uid=${user.uid}`;
+            }, 1200);
+
+        } catch (error) {
+            console.error('❌ Login gagal:', error);
+            
+            // Handle error dari Firebase Auth
+            let errorMessage = 'Login gagal. ';
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    errorMessage += 'Email tidak terdaftar. Silakan daftar terlebih dahulu.';
+                    break;
+                case 'auth/wrong-password':
+                    errorMessage += 'Password salah. Silakan coba lagi.';
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage += 'Format email tidak valid.';
+                    break;
+                case 'auth/user-disabled':
+                    errorMessage += 'Akun ini telah dinonaktifkan.';
+                    break;
+                case 'auth/too-many-requests':
+                    errorMessage += 'Terlalu banyak percobaan. Coba lagi nanti.';
+                    break;
+                default:
+                    errorMessage += error.message;
+            }
+            showStatus('❌ ' + errorMessage, 'error');
+        }
 
         // Enable button & hide loader
         loginBtn.disabled = false;
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
-
-        if (!isRegistered) {
-            showStatus('❌ Email tidak terdaftar. Silakan daftar terlebih dahulu.', 'error');
-            return;
-        }
-
-        if (saved) {
-            showStatus(`✅ Login berhasil! Selamat datang, ${email}`, 'success');
-            console.log('Login sukses:', email, 'waktu:', now);
-            
-            // Redirect ke dashboard dengan membawa email
-            setTimeout(() => {
-                window.location.href = `dashboard.html?email=${encodeURIComponent(email)}`;
-            }, 1200);
-        } else {
-            showStatus('⚠️ Login berhasil, tetapi gagal menyimpan data ke server.', 'error');
-        }
     });
 
-    // Enter key handler untuk password field
+    // Enter key handler
     passInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -186,12 +176,16 @@ if (form) {
 }
 
 // ============================================================
-//  CEK KONEKSI FIREBASE
+//  CEK STATUS AUTH (jika sudah login, langsung redirect)
 // ============================================================
-if (firebaseInitialized && db) {
-    db.collection('logins').limit(1).get()
-        .then(() => console.log('✅ Firestore read test OK'))
-        .catch(err => console.warn('⚠️ Firestore read test gagal:', err));
+if (auth) {
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            console.log('User sudah login:', user.email);
+            // Jika sudah login, redirect ke dashboard
+            window.location.href = `dashboard.html?email=${encodeURIComponent(user.email)}&uid=${user.uid}`;
+        }
+    });
 }
 
-console.log('UIX Login ready.');
+console.log('UIX Login with Firebase Auth ready.');
