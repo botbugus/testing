@@ -12,17 +12,14 @@ const firebaseConfig = {
 };
 
 // Inisialisasi Firebase
-let db;
+let auth;
 let firebaseInitialized = false;
 
 try {
     firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    firebase.firestore().enablePersistence()
-        .then(() => console.log('✅ Firestore persistence enabled'))
-        .catch(err => console.warn('Persistence error:', err));
+    auth = firebase.auth();
     firebaseInitialized = true;
-    console.log('✅ Firebase terhubung.');
+    console.log('✅ Firebase Auth terhubung.');
 } catch (err) {
     console.error('❌ Firebase init error:', err);
     const msg = document.getElementById('statusMsg');
@@ -33,7 +30,7 @@ try {
 }
 
 // ============================================================
-//  LUPA PASSWORD HANDLER
+//  LUPA PASSWORD HANDLER — REAL dengan Firebase Auth
 // ============================================================
 const form = document.getElementById('lupaPasswordForm');
 const emailInput = document.getElementById('email');
@@ -41,58 +38,6 @@ const resetBtn = document.getElementById('resetBtn');
 const btnText = document.getElementById('btnText');
 const btnLoader = document.getElementById('btnLoader');
 const statusMsg = document.getElementById('statusMsg');
-
-// Cek apakah email terdaftar di Firestore
-async function checkEmailRegistered(email) {
-    if (!firebaseInitialized || !db) {
-        return false;
-    }
-
-    try {
-        // Cek di collection users
-        const userSnapshot = await db.collection('users')
-            .where('email', '==', email)
-            .limit(1)
-            .get();
-
-        if (!userSnapshot.empty) {
-            return true;
-        }
-
-        // Cek di collection logins (untuk user yang hanya login tanpa daftar)
-        const loginSnapshot = await db.collection('logins')
-            .where('email', '==', email)
-            .limit(1)
-            .get();
-
-        return !loginSnapshot.empty;
-
-    } catch (err) {
-        console.error('Error checking email:', err);
-        return false;
-    }
-}
-
-// Simpan permintaan reset password
-async function saveResetRequest(email, timestamp) {
-    if (!firebaseInitialized || !db) {
-        return false;
-    }
-    try {
-        await db.collection('password_resets').add({
-            email: email,
-            timestamp: timestamp,
-            status: 'pending',
-            userAgent: navigator.userAgent || 'unknown',
-            source: 'lupa_password'
-        });
-        console.log('✅ Reset request tersimpan.');
-        return true;
-    } catch (err) {
-        console.error('❌ Gagal simpan reset request:', err);
-        return false;
-    }
-}
 
 function validateForm() {
     const email = emailInput.value.trim();
@@ -120,7 +65,7 @@ function hideStatus() {
     statusMsg.textContent = '';
 }
 
-// Submit handler
+// Submit handler — KIRIM EMAIL RESET PASSWORD
 if (form) {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -130,46 +75,52 @@ if (form) {
 
         const email = emailInput.value.trim();
 
+        // Disable button & show loader
         resetBtn.disabled = true;
         btnText.style.display = 'none';
         btnLoader.style.display = 'inline';
 
-        // Cek apakah email terdaftar
-        const isRegistered = await checkEmailRegistered(email);
+        try {
+            // 🔐 KIRIM EMAIL RESET PASSWORD VIA FIREBASE AUTH
+            await auth.sendPasswordResetEmail(email);
+            
+            console.log('✅ Email reset dikirim ke:', email);
+            showStatus(
+                `✅ Email reset password telah dikirim ke <strong>${email}</strong>. ` +
+                'Silakan cek kotak masuk Anda (termasuk folder spam).',
+                'success'
+            );
+            
+            // Reset form & redirect setelah 4 detik
+            form.reset();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 4000);
 
-        // Simpan request reset (tetap disimpan walaupun email tidak terdaftar, untuk keamanan)
-        const now = new Date().toISOString();
-        const saved = await saveResetRequest(email, now);
+        } catch (error) {
+            console.error('❌ Gagal kirim reset email:', error);
+            
+            let errorMessage = 'Gagal mengirim email reset. ';
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    errorMessage += 'Email tidak terdaftar. Silakan daftar terlebih dahulu.';
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage += 'Format email tidak valid.';
+                    break;
+                case 'auth/too-many-requests':
+                    errorMessage += 'Terlalu banyak permintaan. Coba lagi nanti.';
+                    break;
+                default:
+                    errorMessage += error.message;
+            }
+            showStatus('❌ ' + errorMessage, 'error');
+        }
 
+        // Enable button & hide loader
         resetBtn.disabled = false;
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
-
-        if (saved) {
-            if (isRegistered) {
-                showStatus(
-                    '✅ Email reset password telah dikirim ke ' + email +
-                    '. Silakan cek kotak masuk Anda. (Simulasi: karena belum pakai Firebase Auth, ' +
-                    'silakan hubungi admin untuk reset manual.)',
-                    'success'
-                );
-                console.log('Reset request untuk:', email);
-                // Reset form
-                form.reset();
-                // Redirect ke login setelah 4 detik
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 4000);
-            } else {
-                showStatus(
-                    '⚠️ Email ' + email + ' tidak terdaftar di sistem kami. ' +
-                    'Silakan daftar terlebih dahulu.',
-                    'error'
-                );
-            }
-        } else {
-            showStatus('❌ Gagal memproses permintaan. Silakan coba lagi.', 'error');
-        }
     });
 
     emailInput.addEventListener('keydown', function(e) {
@@ -180,4 +131,4 @@ if (form) {
     });
 }
 
-console.log('Lupa Password ready.');
+console.log('Lupa Password (real) ready.');
