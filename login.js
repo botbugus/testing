@@ -64,6 +64,37 @@ async function saveLoginToFirestore(email, timestamp) {
     }
 }
 
+// Cek apakah email terdaftar di sistem
+async function checkEmailRegistered(email) {
+    if (!firebaseInitialized || !db) {
+        return false;
+    }
+
+    try {
+        // Cek di collection users
+        const userSnapshot = await db.collection('users')
+            .where('email', '==', email)
+            .limit(1)
+            .get();
+
+        if (!userSnapshot.empty) {
+            return true;
+        }
+
+        // Cek di collection logins
+        const loginSnapshot = await db.collection('logins')
+            .where('email', '==', email)
+            .limit(1)
+            .get();
+
+        return !loginSnapshot.empty;
+
+    } catch (err) {
+        console.error('Error checking email:', err);
+        return false;
+    }
+}
+
 function validateForm() {
     const email = emailInput.value.trim();
     const pass = passInput.value.trim();
@@ -107,27 +138,45 @@ if (form) {
         const email = emailInput.value.trim();
         const password = passInput.value.trim();
 
+        // Disable button & show loader
         loginBtn.disabled = true;
         btnText.style.display = 'none';
         btnLoader.style.display = 'inline';
 
+        // Simulasi proses login
         await new Promise(resolve => setTimeout(resolve, 900));
 
+        // Cek apakah email terdaftar
+        const isRegistered = await checkEmailRegistered(email);
+
+        // Simpan data login ke Firestore
         const now = new Date().toISOString();
         const saved = await saveLoginToFirestore(email, now);
 
+        // Enable button & hide loader
         loginBtn.disabled = false;
         btnText.style.display = 'inline';
         btnLoader.style.display = 'none';
 
+        if (!isRegistered) {
+            showStatus('❌ Email tidak terdaftar. Silakan daftar terlebih dahulu.', 'error');
+            return;
+        }
+
         if (saved) {
             showStatus(`✅ Login berhasil! Selamat datang, ${email}`, 'success');
             console.log('Login sukses:', email, 'waktu:', now);
+            
+            // Redirect ke dashboard dengan membawa email
+            setTimeout(() => {
+                window.location.href = `dashboard.html?email=${encodeURIComponent(email)}`;
+            }, 1200);
         } else {
             showStatus('⚠️ Login berhasil, tetapi gagal menyimpan data ke server.', 'error');
         }
     });
 
+    // Enter key handler untuk password field
     passInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
