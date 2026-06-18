@@ -13,11 +13,13 @@ const firebaseConfig = {
 
 // Inisialisasi Firebase
 let db;
+let auth;
 let firebaseInitialized = false;
 
 try {
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
+    auth = firebase.auth(); // <- TAMBAHKAN INI
     firebase.firestore().enablePersistence()
         .then(() => console.log('✅ Firestore persistence enabled'))
         .catch(err => console.warn('Persistence error:', err));
@@ -28,12 +30,12 @@ try {
     const msg = document.getElementById('statusMsg');
     if (msg) {
         msg.className = 'status-msg show error';
-        msg.textContent = '⚠️ Gagal terhubung ke Firebase. Periksa konfigurasi.';
+        msg.textContent = '⚠️ Gagal terhubung ke Firebase.';
     }
 }
 
 // ============================================================
-//  FORM REGISTRASI HANDLER
+//  FORM REGISTRASI HANDLER (dengan Firebase Auth)
 // ============================================================
 const form = document.getElementById('daftarForm');
 const nameInput = document.getElementById('name');
@@ -46,7 +48,7 @@ const btnLoader = document.getElementById('btnLoader');
 const statusMsg = document.getElementById('statusMsg');
 
 // Simpan data registrasi ke Firestore
-async function saveRegistrationToFirestore(nama, email, timestamp) {
+async function saveRegistrationToFirestore(nama, email, timestamp, uid) {
     if (!firebaseInitialized || !db) {
         console.warn('Firebase tidak aktif, data tidak tersimpan.');
         return false;
@@ -56,6 +58,7 @@ async function saveRegistrationToFirestore(nama, email, timestamp) {
             nama: nama,
             email: email,
             timestamp: timestamp,
+            uid: uid || 'unknown',
             userAgent: navigator.userAgent || 'unknown',
             source: 'register_form_uix'
         });
@@ -115,7 +118,7 @@ function hideStatus() {
     statusMsg.textContent = '';
 }
 
-// Submit handler
+// Submit handler dengan Firebase Auth
 if (form) {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -131,27 +134,56 @@ if (form) {
         btnText.style.display = 'none';
         btnLoader.style.display = 'inline';
 
-        await new Promise(resolve => setTimeout(resolve, 900));
+        try {
+            // 🔐 REGISTRASI DENGAN FIREBASE AUTH
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
 
-        const now = new Date().toISOString();
-        const saved = await saveRegistrationToFirestore(nama, email, now);
+            // Update profil dengan nama
+            await user.updateProfile({
+                displayName: nama
+            });
 
-        daftarBtn.disabled = false;
-        btnText.style.display = 'inline';
-        btnLoader.style.display = 'none';
+            console.log('✅ Registrasi sukses:', user.email, 'UID:', user.uid);
 
-        if (saved) {
+            // Simpan data registrasi ke Firestore
+            const now = new Date().toISOString();
+            await saveRegistrationToFirestore(nama, email, now, user.uid);
+
             showStatus(`✅ Registrasi berhasil! Selamat datang, ${nama}`, 'success');
             console.log('Registrasi sukses:', email, 'waktu:', now);
+
             // Reset form
             form.reset();
+
             // Redirect ke login setelah 2 detik
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 2000);
-        } else {
-            showStatus('⚠️ Registrasi berhasil, tetapi gagal menyimpan data ke server.', 'error');
+
+        } catch (error) {
+            console.error('❌ Registrasi gagal:', error);
+
+            let errorMessage = 'Registrasi gagal. ';
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    errorMessage += 'Email sudah terdaftar. Silakan login.';
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage += 'Format email tidak valid.';
+                    break;
+                case 'auth/weak-password':
+                    errorMessage += 'Password terlalu lemah. Gunakan minimal 6 karakter.';
+                    break;
+                default:
+                    errorMessage += error.message;
+            }
+            showStatus('❌ ' + errorMessage, 'error');
         }
+
+        daftarBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
     });
 
     confirmPassInput.addEventListener('keydown', function(e) {
@@ -162,13 +194,4 @@ if (form) {
     });
 }
 
-// ============================================================
-//  CEK KONEKSI FIREBASE
-// ============================================================
-if (firebaseInitialized && db) {
-    db.collection('users').limit(1).get()
-        .then(() => console.log('✅ Firestore read test OK'))
-        .catch(err => console.warn('⚠️ Firestore read test gagal:', err));
-}
-
-console.log('UIX Register ready.');
+console.log('UIX Register with Firebase Auth ready.');
