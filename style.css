@@ -508,6 +508,19 @@ body {
     color: #fca5a5;
 }
 
+/* ---------- LUPA PASSWORD (update) ---------- */
+.password-hint {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: -10px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.password-hint strong {
+    color: #818cf8;
+}
+
 /* ---------- FOOTER ---------- */
 .footer-links {
     margin-top: 24px;
