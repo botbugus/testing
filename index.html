@@ -1,60 +1,30 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login · UIX Design</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-
-    <!-- Firebase SDK (LENGKAP) -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Supabase</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="kotak-login">
+    <h2>Masuk Akun</h2>
+    <form id="formLogin">
+      <div class="grup-input">
+        <label>Email</label>
+        <input type="email" id="email" required placeholder="contoh@email.com">
+      </div>
+      <div class="grup-input">
+        <label>Kata Sandi</label>
+        <input type="password" id="sandi" required placeholder="Masukkan kata sandi">
+      </div>
+      <button type="submit">Masuk</button>
+      <p id="pesan"></p>
+      <p class="tautan">Belum punya akun? <a href="#" id="linkDaftar">Daftar di sini</a></p>
+    </form>
+  </div>
 
-    <!-- Particle Canvas -->
-    <canvas id="particles-canvas"></canvas>
-
-    <!-- Login Card -->
-    <div class="login-card">
-        <div class="brand">
-            <div class="brand-icon">✦</div>
-            <h1>UX<span>·</span>Core</h1>
-        </div>
-        <div class="subhead">Masuk dengan akun Anda</div>
-
-        <form id="loginForm" autocomplete="off">
-            <div class="form-group">
-                <label for="email">Alamat Email</label>
-                <input type="email" id="email" placeholder="nama@email.com" required />
-            </div>
-            <div class="form-group">
-                <label for="password">Kata Sandi</label>
-                <input type="password" id="password" placeholder="Minimal 6 karakter" required minlength="6" />
-            </div>
-
-            <button type="submit" class="btn-login" id="loginBtn">
-                <span id="btnText">Masuk</span>
-                <span id="btnLoader" style="display:none;">⏳</span>
-            </button>
-
-            <div class="status-msg" id="statusMsg"></div>
-        </form>
-
-        <div class="footer-links">
-            <a href="lupa-password.html">Lupa password?</a>
-            <a href="daftar.html">Daftar</a>
-        </div>
-    </div>
-
-    <!-- JS -->
-    <script src="particles.js"></script>
-    <script src="login.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 </body>
 </html>
